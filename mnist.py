@@ -1,5 +1,3 @@
-
-
 import numpy as np
 
 from keras.datasets import mnist
@@ -22,22 +20,17 @@ print(y_train)
 y_test = np_utils.to_categorical(y_test, num_classes=10)
 print(y_test)
 
-# Another way to build your CNN
-model = Sequential()
+# Pooling layer 1 (max pooling) output shape (32, 14, 14)
+model.add(MaxPooling2D(
+                       pool_size=2,
+                       strides=2,
+                       padding='same',    # Padding method
+                       data_format='channels_first',
+                       ))
 
-# Conv layer 1 output shape (32, 28, 28)
-model.add(Convolution2D(
-                        batch_input_shape=(None, 1, 28, 28),
-                        filters=32,
-                        kernel_size=5,
-                        strides=1,
-                        padding='same',     # Padding method
-                        data_format='channels_first',
-                        ))
+# Conv layer 2 output shape (64, 14, 14)
+model.add(Convolution2D(64, 5, strides=1, padding='same', data_format='channels_first'))
 model.add(Activation('relu'))
-
-
-
 
 
 
